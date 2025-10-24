@@ -1,5 +1,6 @@
 from typing import Literal
 
+from fastapi import Request
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 LogLevel = Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "NOTSET"]
@@ -43,3 +44,8 @@ class DefaultSettings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
+
+
+def get_settings(request: Request):
+    """Expose settings for dependency injection."""
+    return request.app.state.settings

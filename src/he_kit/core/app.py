@@ -41,6 +41,7 @@ class App(FastAPI):
 
         if settings is not None:
             self.settings = settings
+        self.state.settings = settings
 
         self.configure_logger()
 
