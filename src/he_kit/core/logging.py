@@ -29,7 +29,7 @@ def configure_logging(level: str | int | None = None, json_format: bool = False)
     """Configure and initialize the logging system."""
     # Clear the uvicorn handlers to prevent duplicate logging.
     uvicorn_logger = logging.getLogger("uvicorn")
-    uvicorn_logger.handlers.clear()
+    uvicorn_logger.propagate = False
 
     log_level = (
         getattr(logging, level.upper(), INFO) if isinstance(level, str) else level
