@@ -27,6 +27,9 @@ uvx he-kit init
 After answering the prompts you should have a fully runnable FastAPI setup:
 
 ```
+├── .dockerignore
+├── .gitignore
+├── .pre-commit-config.yaml
 ├── alembic.ini
 ├── Dockerfile
 ├── main.py
@@ -36,7 +39,6 @@ After answering the prompts you should have a fully runnable FastAPI setup:
 │   ├── env.py
 │   ├── script.py.mako
 │   └── versions
-│       └── placeholder.txt
 ├── src
 │   └── helicon_app
 │       ├── app.py
