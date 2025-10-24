@@ -13,7 +13,34 @@ cd helicon-app
 uvx he-kit init
 ```
 
-After answering the prompts you should have a fully runnable FastAPI setup.
+After answering the prompts you should have a fully runnable FastAPI setup:
+
+```
+├── alembic.ini
+├── Dockerfile
+├── main.py
+├── pyproject.toml
+├── README.md
+├── migrations
+│   ├── env.py
+│   ├── script.py.mako
+│   └── versions
+│       └── placeholder.txt
+├── src
+│   └── helicon_app
+│       ├── app.py
+│       ├── conf.py
+│       ├── __init__.py
+│       ├── models
+│       │   └── __init__.py
+│       ├── routers
+│       │   └── __init__.py
+│       └── schemas
+│           └── __init__.py
+└── tests
+    └── conftest.py
+```
+
 You can verify that it works by running the test suite and starting the
 development server:
 
