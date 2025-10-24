@@ -138,11 +138,11 @@ async def list_users(session: AsyncSession = Depends(db_session)):
 
 @router.post("/", response_model=UserRead)
 async def create_user(user: UserCreate, session: AsyncSession = Depends(db_session)):
-    db_user = User.model_validate(user)
-    session.add(db_user)
+    user = User.model_validate(user)
+    session.add(user)
     await session.commit()
-    await session.refresh(db_user)
-    return db_user
+    await session.refresh(user)
+    return user
 ```
 
 And finally we register the router in `app.py`:
