@@ -18,9 +18,13 @@ packages = ["src/{{module_name}}"]
 module-name = "{{module_name}}"
 settings-class = "{{module_name}}.conf.Settings"
 
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
 [dependency-groups]
 dev = [
     "pytest>=8.4.2",
     "pytest-asyncio>=1.2.0",
-    "typer>=0.19.2",
+    "ruff>=0.6.0",
 ]
