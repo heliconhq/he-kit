@@ -41,7 +41,6 @@ class App(FastAPI):
 
         if settings is not None:
             self.settings = settings
-        self.state.settings = settings
 
         self.configure_logger()
 
@@ -55,6 +54,8 @@ class App(FastAPI):
             *args,
             **kwargs,
         )
+
+        self.state.settings = self.settings
 
         self.add_cors_middleware()
 
