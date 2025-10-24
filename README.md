@@ -51,8 +51,9 @@ uv run he-kit dev
 
 ### Create a model and migrations
 
-Helicon-kit users SQLModel and Alembic. To start working with models, first
-create a new module in the `models/` directory. We'll call it `users.py`:
+Helicon-kit uses SQLModel and Alembic. To start working with models, first
+create a new module in the `models/` directory. We'll call it
+`models/users.py`:
 
 ```
 from sqlmodel import Field, SQLModel
@@ -103,7 +104,7 @@ Note: as both schemas and models are derrived from `SQLModel` you can of
 course create base classes and extend them to avoid repeating attributes.
 
 We'll continue and a new module in the `routers/` directory. We'll stay on the
-theme and call it `users.py`:
+theme and call it `routers/users.py`:
 
 ```
 from he_kit.core.db import db_session
