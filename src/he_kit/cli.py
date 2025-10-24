@@ -63,7 +63,7 @@ def init(
 
     version = md.version("he_kit")
 
-    replacements = {
+    context = {
         "project_name": name,
         "canonical_name": canonical,
         "module_name": module_name,
@@ -72,7 +72,7 @@ def init(
     }
 
     try:
-        paths = copy_templates(TEMPLATE_DIR, target_dir, replacements, force)
+        paths = copy_templates(TEMPLATE_DIR, target_dir, context, force)
         for path in paths:
             typer.echo(f"Created file '{path}'.")
         typer.echo(f"Created project '{name}' in {target_dir.resolve()}.")

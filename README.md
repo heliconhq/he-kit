@@ -126,7 +126,7 @@ async def list_users(session: AsyncSession = Depends(db_session)):
 
 
 @router.post("/", response_model=UserRead)
-async def create_user(user: UserCreate, session: AsyncSession = Depends(get_session)):
+async def create_user(user: UserCreate, session: AsyncSession = Depends(db_session)):
     db_user = User.model_validate(user)
     session.add(db_user)
     await session.commit()
