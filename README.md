@@ -60,6 +60,14 @@ uv run pytest
 uv run he-kit dev
 ```
 
+It is recommended that you  synchronize the new environment and install the
+supplied pre-commit hooks (mypy and ruff):
+
+```
+uv sync
+uv run pre-commit install
+```
+
 ### Create a model and migrations
 
 Helicon-kit uses SQLModel and Alembic. To start working with models, first
