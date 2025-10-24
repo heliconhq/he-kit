@@ -1,4 +1,5 @@
 import importlib.metadata as md
+import re
 from pathlib import Path
 
 import typer
@@ -16,6 +17,15 @@ app = typer.Typer()
 
 
 # Bootstrap specific commands
+
+
+def validate_module_name(value: str) -> str:
+    if not re.match(r"^[a-zA-Z_][a-zA-Z0-9_]*$", value):
+        raise typer.BadParameter(
+            "Module name must be a valid Python identifier (letters, digits, "
+            "underscores, not starting with a digit)."
+        )
+    return value
 
 
 @app.command()
@@ -39,6 +49,7 @@ def init(
         "--module-name",
         prompt="Project module name",
         help="The module name of your project.",
+        callback=validate_module_name,
     ),
     force: bool = typer.Option(
         False,
