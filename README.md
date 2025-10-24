@@ -66,7 +66,7 @@ Helicon-kit uses SQLModel and Alembic. To start working with models, first
 create a new module in the `models/` directory. We'll call it
 `models/users.py`:
 
-```
+```python
 from sqlmodel import Field, SQLModel
 
 
@@ -80,7 +80,7 @@ We have to make sure the models are importable via `your_module_name.models`
 in order for Alembic to discover them. We do this by importing the new module
 in `models/__init__.py`:
 
-```
+```python
 from .users import *
 ```
 
@@ -96,7 +96,7 @@ uv run he-kit migrate
 Firstly we need to define some API schemas. We'll add them in the module
 `schemas/users.py`:
 
-```
+```python
 from sqlmodel import SQLModel
 
 
@@ -117,7 +117,7 @@ course create base classes and extend them to avoid repeating attributes.
 We'll continue and a new module in the `routers/` directory. We'll stay on the
 theme and call it `routers/users.py`:
 
-```
+```python
 from he_kit.core.db import db_session
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -147,7 +147,7 @@ async def create_user(user: UserCreate, session: AsyncSession = Depends(db_sessi
 
 And finally we register the router in `app.py`:
 
-```
+```python
 from he_kit.core.app import App
 
 from .conf import settings
@@ -170,7 +170,7 @@ app = create_app()
 To verify that everything works we'll create a testmodule in
 `tests/test_user_endpoints.py`:
 
-```
+```python
 def test_create_user(client):
     payload = {"name": "Alice", "email": "alice@example.com"}
     r = client.post("/users/", json=payload)
