@@ -1,0 +1,31 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install build backend
+        run: uv pip install hatchling
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish to PyPI
+        env:
+          UV_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: uv publish
