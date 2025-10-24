@@ -3,6 +3,17 @@
 A project generator that bootstraps a FastAPI setup following Helicon's
 standards and best practices.
 
+## Included tools
+
+These are the major tools that are configured and included in the project:
+
+- structlog
+- sqlmodel
+- alembic
+- fastapi
+- pydantic-settings
+- pytest
+
 ## Start a new project
 
 Run the following commands to initialize a new project:
