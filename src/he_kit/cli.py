@@ -70,8 +70,8 @@ def init(
 
 
 @app.command()
-def show_settings():
-    """Locate and print discovered settings object."""
+def settings():
+    """Locate and print discovered project settings object."""
     try:
         settings = get_settings()
         for name, value in settings.model_dump().items():
