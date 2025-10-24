@@ -64,8 +64,9 @@ class User(SQLModel, table=True):
     email: str
 ```
 
-Make sure it is importable via `your_module_name.models` by importing it in
-`models/__init__.py`:
+We have to make sure the models are importable via `your_module_name.models`
+in order for Alembic to discover them. We do this by importing the new module
+in `models/__init__.py`:
 
 ```
 from .users import *
