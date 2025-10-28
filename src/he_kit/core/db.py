@@ -1,12 +1,8 @@
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
-from sqlalchemy.ext.asyncio import (
-    AsyncEngine,
-    AsyncSession,
-    async_sessionmaker,
-    create_async_engine,
-)
+from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 engine: AsyncEngine | None = None
 session_maker: async_sessionmaker[AsyncSession] | None = None
@@ -22,6 +18,7 @@ async def db_lifespan(app):
         echo=app.settings.DB_ECHO_SQL,
         pool_pre_ping=True,
     )
+    assert engine is not None
     session_maker = async_sessionmaker(engine, expire_on_commit=False, autoflush=False)
 
     yield
