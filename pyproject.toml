@@ -1,6 +1,6 @@
 [project]
 name = "he-kit"
-version = "0.0.9"
+version = "0.0.10"
 description = "A project generator that bootstraps a FastAPI setup following Helicon's standards and best practices."
 authors = [{ name = "gs", email = "gs@helicon.ai" }]
 readme = "README.md"
