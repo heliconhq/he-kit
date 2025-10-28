@@ -19,7 +19,9 @@ async def db_lifespan(app):
         pool_pre_ping=True,
     )
     assert engine is not None
-    session_maker = async_sessionmaker(engine, expire_on_commit=False, autoflush=False)
+    session_maker = async_sessionmaker(
+        engine, expire_on_commit=False, autoflush=False, class_=AsyncSession
+    )
 
     yield
 
