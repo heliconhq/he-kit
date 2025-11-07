@@ -25,7 +25,9 @@ async def db_lifespan(app):
 
     yield
 
-    await engine.dispose()
+    if engine is not None:
+        await engine.dispose()
+
     engine = None
     session_maker = None
 
