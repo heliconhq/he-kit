@@ -16,6 +16,9 @@ class DefaultSettings(BaseSettings):
     OPENAPI_ENABLED: bool = True
     SCHEMA: str = "http"
 
+    # Auth
+    AUTH_BACKEND: str = "he_kit.authn.dummy.DummyAuthProvider"
+
     # Database
     DB_URL: str = "sqlite+aiosqlite:///default.db"
     DB_ECHO_SQL: bool = False
