@@ -6,7 +6,7 @@ from .base import AuthContext, AuthProvider, UserProfile
 class DummyAuthProvider(AuthProvider):
     """Dummy provider for local dev and testing.
 
-    Authorization header format: "Bearer <tenant_id>:<user_id>"
+    Authorization header format: "Bearer <tenant_key>:<user_id>"
 
     """
 
@@ -15,12 +15,14 @@ class DummyAuthProvider(AuthProvider):
 
     def verify_token(self, token: str) -> AuthContext:
         if not token or ":" not in token:
-            raise ValueError("Invalid dummy token. Expected '<tenant>:<user>' format.")
+            raise ValueError(
+                "Invalid dummy token. Expected '<tenant_key>:<user_id>' format."
+            )
 
-        tenant_id, user_id = token.split(":", 1)
+        tenant_key, user_id = token.split(":", 1)
 
         return AuthContext(
-            user_id=user_id, tenant_id=tenant_id, auth_provider="dummy", claims={}
+            user_id=user_id, tenants=[tenant_key], auth_provider="dummy", claims={}
         )
 
     def get_user(self, user_id: str) -> UserProfile:

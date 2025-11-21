@@ -1,22 +1,21 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from typing import Any, List, Optional
 
+from pydantic import BaseModel
 
-@dataclass
-class AuthContext:
+
+class AuthContext(BaseModel):
     user_id: str
-    tenant_id: str | None
+    tenants: List[str] = []
     claims: dict[str, Any]
     auth_provider: str
 
 
-@dataclass
-class UserProfile:
+class UserProfile(BaseModel):
     user_id: str
     name: str
     email: str
-    photo_url: Optional[str]
+    photo_url: Optional[str] = None
 
 
 class AuthProvider(ABC):

@@ -15,7 +15,7 @@ def test_dummy_auth_adapter_valid_user():
     async def me(request: Request, auth=Depends(get_auth_context)):
         return {
             "user_id": auth.user_id,
-            "tenant_id": auth.tenant_id,
+            "tenants": auth.tenants,
         }
 
     client = TestClient(app)
@@ -26,7 +26,7 @@ def test_dummy_auth_adapter_valid_user():
     data = response.json()
 
     assert data["user_id"] == "alice"
-    assert data["tenant_id"] == "tenant123"
+    assert "tenant123" in data["tenants"]
 
 
 def test_dummy_auth_adapter_invalid_header():
@@ -38,7 +38,7 @@ def test_dummy_auth_adapter_invalid_header():
     async def me(request: Request, auth=Depends(get_auth_context)):
         return {
             "user_id": auth.user_id,
-            "tenant_id": auth.tenant_id,
+            "tenants": auth.tenants,
         }
 
     client = TestClient(app)
