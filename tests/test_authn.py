@@ -1,6 +1,7 @@
-from fastapi import Request
+from fastapi import Depends, Request
 from fastapi.testclient import TestClient
 
+from he_kit.authn.dependencies import get_auth_context
 from he_kit.core.app import App
 from he_kit.core.conf import DefaultSettings
 
@@ -11,10 +12,10 @@ def test_dummy_auth_adapter_valid_user():
     app = App(settings=settings)
 
     @app.get("/me")
-    async def me(request: Request):
+    async def me(request: Request, auth=Depends(get_auth_context)):
         return {
-            "user_id": request.state.auth.user_id,
-            "tenant_id": request.state.auth.tenant_id,
+            "user_id": auth.user_id,
+            "tenant_id": auth.tenant_id,
         }
 
     client = TestClient(app)
@@ -34,10 +35,10 @@ def test_dummy_auth_adapter_invalid_header():
     app = App(settings=settings)
 
     @app.get("/me")
-    async def me(request: Request):
+    async def me(request: Request, auth=Depends(get_auth_context)):
         return {
-            "user_id": request.state.auth.user_id,
-            "tenant_id": request.state.auth.tenant_id,
+            "user_id": auth.user_id,
+            "tenant_id": auth.tenant_id,
         }
 
     client = TestClient(app)

@@ -5,7 +5,6 @@ from fastapi.openapi.utils import get_openapi
 from starlette.middleware.cors import CORSMiddleware
 
 from ..authn.loader import load_auth_provider
-from ..authn.middleware import AuthMiddleware
 from ..utils.project import read_pyproject
 from .conf import DefaultSettings
 from .db import db_lifespan
@@ -61,11 +60,6 @@ class App(FastAPI):
         self.state.auth_provider = load_auth_provider(self.settings.AUTH_BACKEND)
 
         self.add_cors_middleware()
-        self.add_auth_middleware()
-
-    def add_auth_middleware(self):
-        """Register generic authn middleware."""
-        self.add_middleware(AuthMiddleware)
 
     def add_cors_middleware(self):
         """Register CORS middleware based on configuration."""
