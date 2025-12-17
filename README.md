@@ -220,3 +220,11 @@ uv venv
 pip install -e ../path/to/he-kit
 uv run he-kit ...
 ```
+
+## Releasing a new version
+
+Update the version in the `pyproject.toml` file, commit it, create a matching
+tag in git, and push:
+
+    git tag v0.1.x
+    git push --tags
