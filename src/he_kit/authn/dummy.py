@@ -18,7 +18,7 @@ class DummyAuthProvider(AuthProvider):
     def __init__(self, users: Optional[Dict[str, Dict]] = None):
         self._users = users or {}
 
-    def get_token(self, request: Request):
+    async def get_token(self, request: Request):
         auth_header = request.headers.get("Authorization")
         auth_header = request.headers.get("Authorization")
 
@@ -30,7 +30,7 @@ class DummyAuthProvider(AuthProvider):
         token = auth_header[len("Bearer ") :].strip()
         return token
 
-    def verify_token(self, token: str) -> AuthContext:
+    async def verify_token(self, token: str) -> AuthContext:
         if not token or ":" not in token:
             raise ValueError(
                 "Invalid dummy token. Expected '<tenant_key>:<user_id>' format."
@@ -42,7 +42,7 @@ class DummyAuthProvider(AuthProvider):
             user_id=user_id, tenants=[tenant_key], auth_provider="dummy", claims={}
         )
 
-    def get_user(self, user_id: str) -> UserProfile:
+    async def get_user(self, user_id: str) -> UserProfile:
         if user_id in self._users:
             record = self._users[user_id]
 
@@ -60,5 +60,5 @@ class DummyAuthProvider(AuthProvider):
             photo_url="https://picsum.photos/id/64/500/500",
         )
 
-    def get_users(self, user_ids: List[str]) -> List[UserProfile]:
-        return [self.get_user(uid) for uid in user_ids]
+    async def get_users(self, user_ids: List[str]) -> List[UserProfile]:
+        return [await self.get_user(uid) for uid in user_ids]
