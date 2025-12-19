@@ -2,12 +2,12 @@ from abc import ABC, abstractmethod
 from typing import Any, List, Optional
 
 from fastapi import FastAPI, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class AuthContext(BaseModel):
     user_id: str
-    tenants: List[str] = []
+    tenants: List[str] = Field(default_factory=list)
     claims: dict[str, Any]
     auth_provider: str
 
