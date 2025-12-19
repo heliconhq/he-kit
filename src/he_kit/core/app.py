@@ -64,7 +64,7 @@ class App(FastAPI):
     def add_cors_middleware(self):
         """Register CORS middleware based on configuration."""
         self.add_middleware(
-            CORSMiddleware,
+            CORSMiddleware,  # ty: ignore[invalid-argument-type]
             allow_origins=self.settings.CORS_ALLOWED_ORIGINS,
             allow_credentials=self.settings.CORS_ALLOW_CREDENTIALS,
             allow_methods=self.settings.CORS_ALLOWED_METHODS,

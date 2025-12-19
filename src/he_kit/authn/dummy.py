@@ -1,5 +1,7 @@
 from typing import Dict, List, Optional
 
+from fastapi import HTTPException, Request, status
+
 from .base import AuthContext, AuthProvider, UserProfile
 
 
@@ -10,8 +12,23 @@ class DummyAuthProvider(AuthProvider):
 
     """
 
+    @classmethod
+    def setup(cls, app): ...
+
     def __init__(self, users: Optional[Dict[str, Dict]] = None):
         self._users = users or {}
+
+    def get_token(self, request: Request):
+        auth_header = request.headers.get("Authorization")
+        auth_header = request.headers.get("Authorization")
+
+        if not auth_header or not auth_header.startswith("Bearer "):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing token"
+            )
+
+        token = auth_header[len("Bearer ") :].strip()
+        return token
 
     def verify_token(self, token: str) -> AuthContext:
         if not token or ":" not in token:

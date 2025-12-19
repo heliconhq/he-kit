@@ -11,14 +11,8 @@ def get_auth_context(request: Request) -> AuthContext:
 
     """
     auth_provider = request.app.state.auth_provider
-    auth_header = request.headers.get("Authorization")
 
-    if not auth_header or not auth_header.startswith("Bearer "):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing token"
-        )
-
-    token = auth_header[len("Bearer ") :].strip()
+    token = auth_provider.get_token(request)
 
     try:
         return auth_provider.verify_token(token)
