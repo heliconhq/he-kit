@@ -40,7 +40,7 @@ class DummyAuthProvider(AuthProvider):
             user_id=user_id,
             name=user_id.capitalize(),
             email=f"{user_id}@example.com",
-            photo_url=f"https://picsum.photos/id/64/500/500",
+            photo_url="https://picsum.photos/id/64/500/500",
         )
 
     def get_users(self, user_ids: List[str]) -> List[UserProfile]:
