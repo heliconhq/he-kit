@@ -221,6 +221,41 @@ pip install -e ../path/to/he-kit
 uv run he-kit ...
 ```
 
+## Keycloak authentication
+
+`he-kit` support Keycloak as an optional authentication backend.
+
+### Installation
+
+Keycloak support is provided via an optional dependency.
+
+```
+uv add he-kit[keycloak]
+```
+
+### Configuration
+
+Enable the Keycloak backend by setting `AUTH_BACKEND` to the fully qualified
+provider path and supplying `AUTH_BACKEND_SETTINGS` as a `KeycloakSettings`
+instance.
+
+```python
+from he_kit.core.conf import DefaultSettings
+from he_kit.authn.keycloak import KeycloakSettings
+
+settings = DefaultSettings(
+    AUTH_BACKEND="he_kit.authn.keycloak.KeycloakAuthProvider",
+    AUTH_BACKEND_SETTINGS=KeycloakSettings(
+        SERVER_URL="http://localhost:8080",
+        REALM="my-realm",
+        CLIENT_ID="api-client",
+        CLIENT_SECRET="secret",
+        ADMIN_USERNAME="admin",
+        ADMIN_PASSWORD="admin",
+    ),
+)
+```
+
 ## Releasing a new version
 
 Update the version in the `pyproject.toml` file, commit it, create a matching
