@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Dict, Literal
 
 from fastapi import Request
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -18,6 +18,7 @@ class DefaultSettings(BaseSettings):
 
     # Auth
     AUTH_BACKEND: str = "he_kit.authn.dummy.DummyAuthProvider"
+    AUTH_BACKEND_SETTINGS: BaseSettings | dict = {}
 
     # Database
     DB_URL: str = "sqlite+aiosqlite:///default.db"

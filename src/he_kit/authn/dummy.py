@@ -1,25 +1,28 @@
 from typing import Dict, List, Optional
 
 from fastapi import HTTPException, Request, status
+from pydantic_settings import BaseSettings
 
 from .base import AuthContext, AuthProvider, UserProfile
 
 
-class DummyAuthProvider(AuthProvider):
+class DummySettings(BaseSettings):
+    pass
+
+
+class DummyAuthProvider(AuthProvider[DummySettings]):
     """Dummy provider for local dev and testing.
 
     Authorization header format: "Bearer <tenant_key>:<user_id>"
 
     """
 
-    @classmethod
-    def setup(cls, app): ...
+    auth_backend_settings_class = DummySettings
 
     def __init__(self, users: Optional[Dict[str, Dict]] = None):
         self._users = users or {}
 
     async def get_token(self, request: Request):
-        auth_header = request.headers.get("Authorization")
         auth_header = request.headers.get("Authorization")
 
         if not auth_header or not auth_header.startswith("Bearer "):

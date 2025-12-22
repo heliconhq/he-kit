@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, Optional
+from typing import Any, Generic, List, Optional, Type, TypeVar
 
-from fastapi import FastAPI, Request
+from fastapi import Request
 from pydantic import BaseModel, Field
+from pydantic_settings import BaseSettings
+
+AuthProviderSettings = TypeVar("AuthProviderSettings", bound=BaseSettings)
 
 
 class AuthContext(BaseModel):
@@ -19,10 +22,22 @@ class UserProfile(BaseModel):
     photo_url: Optional[str] = None
 
 
-class AuthProvider(ABC):
-    @classmethod
-    @abstractmethod
-    def setup(cls, app: FastAPI): ...
+class AuthProvider(ABC, Generic[AuthProviderSettings]):
+    auth_backend_settings_class: Type[AuthProviderSettings]
+
+    def __init_subclass__(cls) -> None:
+        super().__init_subclass__()
+
+        if not hasattr(cls, "auth_backend_settings_class"):
+            raise TypeError(
+                "Subclasses of AuthProvider must define the auth_backend_settings_class attribute."
+            )
+
+    def __init__(self, settings: Any):
+        self.settings = settings
+        self.provider_settings = self.auth_backend_settings_class.model_validate(
+            settings.AUTH_BACKEND_SETTINGS
+        )
 
     @abstractmethod
     async def verify_token(self, token: str) -> AuthContext: ...

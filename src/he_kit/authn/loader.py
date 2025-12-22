@@ -1,14 +1,16 @@
 import importlib
 
+from ..core.conf import DefaultSettings
 from .base import AuthProvider
 
 
-def load_auth_provider(path: str) -> AuthProvider:
+def load_auth_provider(settings: DefaultSettings) -> AuthProvider:
     """Load an AuthProvider class from a full import path.
 
     Example: "he_kit.authn.dummy.DummyAuthProvider"
 
     """
+    path = settings.AUTH_BACKEND
     if "." not in path:
         raise ValueError(f"Invalid AUTH_BACKEND: {path}")
 
@@ -20,7 +22,7 @@ def load_auth_provider(path: str) -> AuthProvider:
     if cls is None:
         raise ImportError(f"Class {class_name} not found in {module_path}")
 
-    provider = cls()
+    provider = cls(settings)
 
     if not isinstance(provider, AuthProvider):
         raise TypeError(f"{path} is not an AuthProvider")

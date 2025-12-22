@@ -21,7 +21,9 @@ async def get_auth_context(
     try:
         return await auth_provider.verify_token(token)
     except Exception as exc:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc))
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)
+        ) from exc
 
 
 get_auth = get_auth_context

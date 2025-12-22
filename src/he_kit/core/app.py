@@ -57,7 +57,7 @@ class App(FastAPI):
         )
 
         self.state.settings = self.settings
-        self.state.auth_provider = load_auth_provider(self.settings.AUTH_BACKEND)
+        self.state.auth_provider = load_auth_provider(self.settings)
 
         self.add_cors_middleware()
 
