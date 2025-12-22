@@ -1,8 +1,6 @@
 from typing import Dict
 
 import pytest
-from fastapi.testclient import TestClient
-from jose import jwt
 from keycloak import KeycloakOpenID
 
 
@@ -21,16 +19,3 @@ def keycloak_token() -> Dict[str, str]:
     )
 
     return token
-
-
-@pytest.fixture
-def kc_client(keycloak_token):
-    client = APIClient()
-
-    access_token = keycloak_token["access_token"]
-    claims = jwt.get_unverified_claims(access_token)
-
-    client.defaults["HTTP_AUTHORIZATION"] = f"Bearer {access_token}"
-    client.user_id = claims["sub"]
-
-    return client
