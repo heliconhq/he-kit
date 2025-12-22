@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt  # type: ignore[import-not-found]
+from jose import JWTError, jwt
 from pydantic_settings import BaseSettings
 
 from .base import AuthContext, AuthProvider, UserProfile
@@ -121,12 +121,13 @@ class KeycloakAuthBackend(AuthProvider[KeycloakSettings]):
         name = (
             f"{user.get('firstName', '')} {user.get('lastName', '')}".strip()
             or user.get("username")
+            or "N/A"
         )
 
         return UserProfile(
             user_id=user["id"],
             name=name,
-            email=user.get("email"),
+            email=user.get("email", "N/A"),
             photo_url=None,
         )
 

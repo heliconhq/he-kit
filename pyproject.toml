@@ -40,6 +40,7 @@ dev = [
     "testcontainers>=4.13.2",
     "typer>=0.19.2",
     "python-keycloak>=4.6.0",
+    "types-python-jose>=3.5.0.20250531",
 ]
 
 [project.scripts]

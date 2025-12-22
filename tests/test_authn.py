@@ -74,8 +74,6 @@ def test_keycloak_auth_adapter_valid_user(keycloak_token):
             "tenants": auth.tenants,
         }
 
-    from jose import jwt
-
     access_token = keycloak_token["access_token"]
 
     headers = {
