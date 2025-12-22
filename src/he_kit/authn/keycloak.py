@@ -78,7 +78,6 @@ class KeycloakAuthBackend(AuthProvider[KeycloakSettings]):
                 token,
                 self._public_key,
                 algorithms=["RS256"],
-                audience="account",
                 issuer=self._issuer,
             )
         except JWTError as exc:
