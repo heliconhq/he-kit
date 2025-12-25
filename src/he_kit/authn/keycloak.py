@@ -1,8 +1,8 @@
 from typing import List, Optional
 
+import jwt
 from fastapi import HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
 from pydantic_settings import BaseSettings
 
 from .base import AuthContext, AuthProvider, UserProfile
@@ -80,8 +80,14 @@ class KeycloakAuthBackend(AuthProvider[KeycloakSettings]):
                 algorithms=["RS256"],
                 audience="account",
                 issuer=self._issuer,
+                options={
+                    "verify_signature": True,
+                    "verify_exp": True,
+                    "verify_aud": True,
+                    "verify_iss": True,
+                },
             )
-        except JWTError as exc:
+        except jwt.PyJWTError as exc:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid access token",
