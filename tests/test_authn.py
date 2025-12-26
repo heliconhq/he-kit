@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import Depends, Request
 from fastapi.testclient import TestClient
 
@@ -10,6 +12,7 @@ from he_kit.core.conf import DefaultSettings
 class KeycloakSettings(BaseKeycloakSettings):
     SERVER_URL: str = "http://localhost:8080"
     REALM: str = "teron"
+    AUDIENCE: List[str] = ["account"]
     CLIENT_ID: str = "teron-core-api"
     CLIENT_SECRET: str = "tjWtEoiKhGl7mH8nkg3s2DUGnugJjwQA"
 

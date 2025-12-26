@@ -11,6 +11,7 @@ from .base import AuthContext, AuthProvider, UserProfile
 class KeycloakSettings(BaseSettings):
     SERVER_URL: str
     REALM: str
+    AUDIENCE: List[str]
     CLIENT_ID: str
     CLIENT_SECRET: str
 
@@ -78,7 +79,7 @@ class KeycloakAuthBackend(AuthProvider[KeycloakSettings]):
                 token,
                 self._public_key,
                 algorithms=["RS256"],
-                audience="account",
+                audience=self.provider_settings.AUDIENCE,
                 issuer=self._issuer,
                 options={
                     "verify_signature": True,
