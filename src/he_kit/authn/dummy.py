@@ -1,12 +1,12 @@
 from typing import Dict, List, Optional
 
 from fastapi import HTTPException, Request, status
-from pydantic_settings import BaseSettings
+from pydantic import BaseModel
 
 from .base import AuthContext, AuthProvider, UserProfile
 
 
-class DummySettings(BaseSettings):
+class DummySettings(BaseModel):
     pass
 
 

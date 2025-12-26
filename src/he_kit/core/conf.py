@@ -1,6 +1,7 @@
-from typing import Any, Dict, Literal
+from typing import Any, Literal, Type
 
 from fastapi import Request
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 LogLevel = Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "NOTSET"]
@@ -18,7 +19,7 @@ class DefaultSettings(BaseSettings):
 
     # Auth
     AUTH_BACKEND: str = "he_kit.authn.dummy.DummyAuthProvider"
-    AUTH_BACKEND_SETTINGS: BaseSettings | dict = {}
+    AUTH_BACKEND_SETTINGS: BaseModel | dict = {}
 
     # Database
     DB_URL: str = "sqlite+aiosqlite:///default.db"

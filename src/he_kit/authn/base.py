@@ -3,9 +3,8 @@ from typing import Any, Generic, List, Optional, Type, TypeVar
 
 from fastapi import Request
 from pydantic import BaseModel, Field
-from pydantic_settings import BaseSettings
 
-AuthProviderSettings = TypeVar("AuthProviderSettings", bound=BaseSettings)
+AuthProviderSettings = TypeVar("AuthProviderSettings", bound=BaseModel)
 
 
 class AuthContext(BaseModel):
